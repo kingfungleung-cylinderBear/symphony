@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symphony - Hello World</title>
+    <title>Symphony Christian Care Group</title>
     <style>
         * {
             margin: 0;
@@ -13,41 +13,140 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .hero {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            text-align: center;
+            padding: 40px 20px;
         }
         
-        .container {
-            text-align: center;
-            padding: 40px;
+        .hero-content {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
+            padding: 60px 40px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             animation: fadeIn 1s ease-in;
-        }
-        
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: slideDown 0.8s ease-out;
-        }
-        
-        p {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            animation: slideUp 1s ease-out;
+            max-width: 800px;
         }
         
         .emoji {
             font-size: 5rem;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .next-meetup {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .meetup-details {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+        
+        .break-notice {
+            background: rgba(255, 193, 7, 0.3);
+            border: 2px solid rgba(255, 193, 7, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .scroll-hint {
+            margin-top: 40px;
+            font-size: 1rem;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+        
+        .scroll-arrow {
+            font-size: 2rem;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .schedule-section {
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .schedule-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .schedule-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .schedule-table {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+        
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .event-link {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .event-link:hover {
+            text-decoration: underline;
+        }
+        
+        .break-row {
+            background: rgba(255, 193, 7, 0.15);
+        }
+        
+        .special-row {
+            background: rgba(76, 175, 80, 0.2);
         }
         
         @keyframes fadeIn {
@@ -66,17 +165,6 @@
             }
         }
         
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 0.9;
-            }
-        }
-        
         @keyframes bounce {
             0%, 100% {
                 transform: translateY(0);
@@ -86,25 +174,125 @@
             }
         }
         
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+        
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            p {
-                font-size: 1.2rem;
+            .next-meetup {
+                font-size: 1.4rem;
+            }
+            .meetup-details {
+                font-size: 1.1rem;
             }
             .emoji {
                 font-size: 3rem;
+            }
+            th, td {
+                padding: 15px 10px;
+                font-size: 0.95rem;
+            }
+            .schedule-title {
+                font-size: 2rem;
+            }
+            .hero-content {
+                padding: 40px 25px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="emoji">🎵</div>
-        <h1>Symphony Music</h1>
-        <p>Welcome to Symphony</p>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="emoji">🙏</div>
+            <h1>Symphony Christian Care Group</h1>
+            
+            <div class="break-notice">
+                ⚠️ No Meeting This Week<br>
+                March 26 - Taking a Break
+            </div>
+            
+            <div class="next-meetup">Next Meetup:</div>
+            <div class="meetup-details">📅 Thursday, April 2, 2026</div>
+            <div class="meetup-details">
+                🎯 Special Event: 
+                <a href="https://www.islandecc.hk/event/24289610-2026-04-02-the-garden-an-intimate-night-of-prayer-presence/" 
+                   class="event-link" target="_blank">
+                   The Garden - A Night of Prayer & Presence
+                </a>
+            </div>
+            
+            <div class="scroll-hint">
+                Scroll down to see upcoming meetups
+                <span class="scroll-arrow">↓</span>
+            </div>
+        </div>
     </div>
-<footer style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background: rgba(0,0,0,0.3);">© 2026 Symphony. All rights reserved.</footer>
+    
+    <!-- Schedule Section -->
+    <div class="schedule-section">
+        <div class="schedule-container">
+            <h2 class="schedule-title">📅 Upcoming Meetups</h2>
+            
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="break-row">
+                            <td>March 26, 2026</td>
+                            <td>Thursday</td>
+                            <td>❌ No Meeting - Break</td>
+                        </tr>
+                        <tr class="special-row">
+                            <td>April 2, 2026</td>
+                            <td>Thursday</td>
+                            <td>
+                                🎯 <strong>Special Event:</strong> 
+                                <a href="https://www.islandecc.hk/event/24289610-2026-04-02-the-garden-an-intimate-night-of-prayer-presence/" 
+                                   class="event-link" target="_blank">
+                                   The Garden - A Night of Prayer & Presence
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>April 9, 2026</td>
+                            <td>Thursday</td>
+                            <td>✅ Regular Meetup - TBA</td>
+                        </tr>
+                        <tr>
+                            <td>April 16, 2026</td>
+                            <td>Thursday</td>
+                            <td>✅ Regular Meetup - TBA</td>
+                        </tr>
+                        <tr>
+                            <td>April 23, 2026</td>
+                            <td>Thursday</td>
+                            <td>✅ Regular Meetup - TBA</td>
+                        </tr>
+                        <tr>
+                            <td>April 30, 2026</td>
+                            <td>Thursday</td>
+                            <td>✅ Regular Meetup - TBA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
