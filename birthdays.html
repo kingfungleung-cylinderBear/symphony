@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphony Care Group - Birthdays 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .birthday-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .month-section {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease;
+        }
+        
+        .month-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .month-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .person {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .person:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .person-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .person-date {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .upcoming {
+            background: rgba(255, 215, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+        
+        .stats {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+        }
+        
+        .stats-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stats-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .emoji {
+                font-size: 3rem;
+            }
+            .birthday-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji">🎂</div>
+            <h1>Symphony Care Group Birthdays</h1>
+            <p class="subtitle">Celebrating our community together! 🎉</p>
+        </div>
+        
+        <div class="birthday-grid">
+            <!-- January -->
+            <div class="month-section">
+                <div class="month-header">
+                    ❄️ January
+                </div>
+                <div class="person">
+                    <span class="person-name">Flora</span>
+                    <span class="person-date">Jan 22</span>
+                </div>
+            </div>
+            
+            <!-- February -->
+            <div class="month-section">
+                <div class="month-header">
+                    💝 February
+                </div>
+                <div class="person">
+                    <span class="person-name">Sharon</span>
+                    <span class="person-date">Feb 17</span>
+                </div>
+            </div>
+            
+            <!-- March -->
+            <div class="month-section">
+                <div class="month-header">
+                    🌸 March
+                </div>
+                <div class="person upcoming">
+                    <span class="person-name">Maria</span>
+                    <span class="person-date">Mar 31</span>
+                </div>
+            </div>
+            
+            <!-- April -->
+            <div class="month-section">
+                <div class="month-header">
+                    🌷 April
+                </div>
+                <div class="person">
+                    <span class="person-name">Joyce</span>
+                    <span class="person-date">Apr 18</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Mylene</span>
+                    <span class="person-date">Apr 26</span>
+                </div>
+            </div>
+            
+            <!-- May -->
+            <div class="month-section">
+                <div class="month-header">
+                    🌺 May
+                </div>
+                <div class="person">
+                    <span class="person-name">Jen Z</span>
+                    <span class="person-date">May 16</span>
+                </div>
+            </div>
+            
+            <!-- June -->
+            <div class="month-section">
+                <div class="month-header">
+                    ☀️ June
+                </div>
+                <div class="person">
+                    <span class="person-name">Joanne</span>
+                    <span class="person-date">Jun 15</span>
+                </div>
+            </div>
+            
+            <!-- July -->
+            <div class="month-section">
+                <div class="month-header">
+                    🏖️ July
+                </div>
+                <div class="person">
+                    <span class="person-name">Billy</span>
+                    <span class="person-date">Jul 11</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Yang</span>
+                    <span class="person-date">Jul 19</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Connie</span>
+                    <span class="person-date">Jul 30</span>
+                </div>
+            </div>
+            
+            <!-- August -->
+            <div class="month-section">
+                <div class="month-header">
+                    🌻 August
+                </div>
+                <div class="person">
+                    <span class="person-name">Josephine</span>
+                    <span class="person-date">Aug 6</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Janice</span>
+                    <span class="person-date">Aug 7</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Samuel</span>
+                    <span class="person-date">Aug 10</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Elyse</span>
+                    <span class="person-date">Aug 19</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Kelvin</span>
+                    <span class="person-date">Aug 30</span>
+                </div>
+            </div>
+            
+            <!-- October -->
+            <div class="month-section">
+                <div class="month-header">
+                    🍂 October
+                </div>
+                <div class="person">
+                    <span class="person-name">Edwin</span>
+                    <span class="person-date">Oct 4</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Jonathan</span>
+                    <span class="person-date">Oct 11</span>
+                </div>
+            </div>
+            
+            <!-- November -->
+            <div class="month-section">
+                <div class="month-header">
+                    🍁 November
+                </div>
+                <div class="person">
+                    <span class="person-name">Andrew</span>
+                    <span class="person-date">Nov 17</span>
+                </div>
+                <div class="person">
+                    <span class="person-name">Alvin</span>
+                    <span class="person-date">Nov 21</span>
+                </div>
+            </div>
+            
+            <!-- December -->
+            <div class="month-section">
+                <div class="month-header">
+                    🎄 December
+                </div>
+                <div class="person">
+                    <span class="person-name">John</span>
+                    <span class="person-date">Dec 8</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stats-number">20</div>
+            <div class="stats-label">People in Our Care Group 💝</div>
+        </div>
+    </div>
+</body>
+</html>
