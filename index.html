@@ -71,6 +71,28 @@
             font-size: 1.2rem;
         }
         
+        .signup-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 40px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .signup-button:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
         .scroll-hint {
             margin-top: 40px;
             font-size: 1rem;
@@ -214,6 +236,10 @@
             .hero-content {
                 padding: 40px 25px;
             }
+            .signup-button {
+                font-size: 1.1rem;
+                padding: 15px 30px;
+            }
         }
     </style>
 </head>
@@ -236,6 +262,8 @@
                 </a>
             </div>
 
+
+            <a href="signup.html" class="signup-button">📝 Volunteer Sign-Up</a>
 
             
             <div class="scroll-hint">

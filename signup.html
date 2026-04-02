@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Symphony Christian Care Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .form-wrapper {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        iframe {
+            border: none;
+            width: 100%;
+            min-height: 1000px;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        
+        .info-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-box li {
+            padding: 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .info-box li:before {
+            content: "✓ ";
+            color: #4ade80;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .emoji {
+                font-size: 3rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .info-box {
+                padding: 15px;
+            }
+            
+            iframe {
+                min-height: 900px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Home</a>
+        
+        <div class="header">
+            <div class="emoji">📝</div>
+            <h1>Volunteer Sign-Up</h1>
+            <p class="subtitle">Help lead our Thursday meetups</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="info-box">
+                <h3>Available Roles:</h3>
+                <ul>
+                    <li>Worship Songs - Lead the group in worship</li>
+                    <li>Opening Prayer - Begin our time together in prayer</li>
+                    <li>Bible Study - Guide discussion and teaching</li>
+                    <li>Closing Prayer - Close our meeting in prayer</li>
+                </ul>
+            </div>
+            
+            <div class="form-wrapper">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdT8mdBkiPey5gA6zlKcep4r3GFSSJhQU803ZTCuQ_YzBqWpw/viewform?embedded=true" width="640" height="907" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
