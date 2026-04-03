@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 700px;
             margin: 0 auto;
         }
         
@@ -66,6 +66,25 @@
             transform: translateX(-5px);
         }
         
+        .view-schedule-btn {
+            display: inline-block;
+            margin-left: 15px;
+            padding: 12px 24px;
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .view-schedule-btn:hover {
+            background: rgba(76, 175, 80, 0.4);
+            transform: translateY(-2px);
+        }
+        
         .form-container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -74,19 +93,6 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             animation: fadeIn 1s ease-in;
-        }
-        
-        .form-wrapper {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        iframe {
-            border: none;
-            width: 100%;
-            min-height: 1000px;
         }
         
         .info-box {
@@ -117,6 +123,83 @@
             color: #4ade80;
             font-weight: bold;
             margin-right: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .submit-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid rgba(76, 175, 80, 0.6);
+        }
+        
+        .message.error {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid rgba(239, 68, 68, 0.6);
         }
         
         @keyframes fadeIn {
@@ -158,7 +241,7 @@
             }
             
             .form-container {
-                padding: 20px;
+                padding: 25px;
             }
             
             .subtitle {
@@ -169,8 +252,9 @@
                 padding: 15px;
             }
             
-            iframe {
-                min-height: 900px;
+            .view-schedule-btn {
+                display: block;
+                margin: 15px 0 0 0;
             }
         }
     </style>
@@ -178,6 +262,7 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-button">← Back to Home</a>
+        <a href="volunteer-schedule.html" class="view-schedule-btn">📅 View Current Schedule</a>
         
         <div class="header">
             <div class="emoji">📝</div>
@@ -186,6 +271,8 @@
         </div>
         
         <div class="form-container">
+            <div id="messageBox" class="message"></div>
+            
             <div class="info-box">
                 <h3>Available Roles:</h3>
                 <ul>
@@ -196,10 +283,100 @@
                 </ul>
             </div>
             
-            <div class="form-wrapper">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdT8mdBkiPey5gA6zlKcep4r3GFSSJhQU803ZTCuQ_YzBqWpw/viewform?embedded=true" width="640" height="907" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Select Meeting Date *</label>
+                    <select id="date" name="date" required>
+                        <option value="">Choose a date...</option>
+                        <option value="2026-04-09">April 9, 2026 (Thursday)</option>
+                        <option value="2026-04-16">April 16, 2026 (Thursday)</option>
+                        <option value="2026-05-07">May 7, 2026 (Thursday)</option>
+                        <option value="2026-05-14">May 14, 2026 (Thursday)</option>
+                        <option value="2026-05-21">May 21, 2026 (Thursday)</option>
+                        <option value="2026-06-04">June 4, 2026 (Thursday)</option>
+                        <option value="2026-06-11">June 11, 2026 (Thursday)</option>
+                        <option value="2026-06-18">June 18, 2026 (Thursday)</option>
+                        <option value="2026-07-09">July 9, 2026 (Thursday)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Select Role *</label>
+                    <select id="role" name="role" required>
+                        <option value="">Choose a role...</option>
+                        <option value="Worship Songs">Worship Songs</option>
+                        <option value="Opening Prayer">Opening Prayer</option>
+                        <option value="Bible Study">Bible Study</option>
+                        <option value="Closing Prayer">Closing Prayer</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">Sign Me Up! 🙌</button>
+            </form>
         </div>
     </div>
+    
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw__4rKuyhJvENvlKoV8ZHC6FmdPIQzEmbO4JLJd8ha6t7qhbRN4E9_ES6SFoJ6rgmy/exec';
+        
+        const form = document.getElementById('signupForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageBox = document.getElementById('messageBox');
+        
+        function showMessage(text, type) {
+            messageBox.textContent = text;
+            messageBox.className = `message ${type}`;
+            messageBox.style.display = 'block';
+            
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000);
+        }
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                date: document.getElementById('date').value,
+                role: document.getElementById('role').value
+            };
+            
+            if (!formData.name || !formData.date || !formData.role) {
+                showMessage('Please fill in all fields!', 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Due to no-cors, we can't read the response, but if no error thrown, assume success
+                showMessage('✅ Thank you! Your signup has been recorded.', 'success');
+                form.reset();
+                
+            } catch (error) {
+                showMessage('❌ Something went wrong. Please try again or contact the administrator.', 'error');
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Me Up! 🙌';
+            }
+        });
+    </script>
 </body>
 </html>

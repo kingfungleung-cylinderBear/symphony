@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Schedule - Symphony Christian Care Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .button-group {
+            margin-bottom: 30px;
+        }
+        
+        .back-button, .signup-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-right: 15px;
+        }
+        
+        .back-button:hover, .signup-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .signup-button {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+        
+        .signup-button:hover {
+            background: rgba(76, 175, 80, 0.4);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .schedule-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .date-section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .date-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .date-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .role-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .role-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        
+        .volunteer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4ade80;
+        }
+        
+        .empty-slot {
+            font-style: italic;
+            opacity: 0.6;
+            color: #fbbf24;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .refresh-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 30px;
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .refresh-btn:hover {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .emoji {
+                font-size: 3rem;
+            }
+            
+            .schedule-container {
+                padding: 25px;
+            }
+            
+            .date-section {
+                padding: 20px;
+            }
+            
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .back-button, .signup-button {
+                margin: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="button-group">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <a href="signup-new.html" class="signup-button">📝 Sign Up to Volunteer</a>
+        </div>
+        
+        <div class="header">
+            <div class="emoji">📅</div>
+            <h1>Volunteer Schedule</h1>
+            <p class="subtitle">See who's serving each Thursday</p>
+        </div>
+        
+        <div id="loadingBox" class="loading">
+            Loading schedule... ⏳
+        </div>
+        
+        <div id="scheduleBox" class="schedule-container" style="display: none;">
+            <div id="scheduleContent"></div>
+            <button class="refresh-btn" onclick="loadSchedule()">🔄 Refresh Schedule</button>
+        </div>
+    </div>
+    
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw__4rKuyhJvENvlKoV8ZHC6FmdPIQzEmbO4JLJd8ha6t7qhbRN4E9_ES6SFoJ6rgmy/exec';
+        
+        const ROLES = ['Worship Songs', 'Opening Prayer', 'Bible Study', 'Closing Prayer'];
+        
+        async function loadSchedule() {
+            const loadingBox = document.getElementById('loadingBox');
+            const scheduleBox = document.getElementById('scheduleBox');
+            const scheduleContent = document.getElementById('scheduleContent');
+            
+            loadingBox.style.display = 'block';
+            scheduleBox.style.display = 'none';
+            
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                
+                if (!data || data.length === 0) {
+                    scheduleContent.innerHTML = '<div class="no-data">No volunteer signups yet. Be the first to sign up! 🙌</div>';
+                } else {
+                    displaySchedule(data);
+                }
+                
+                loadingBox.style.display = 'none';
+                scheduleBox.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading schedule:', error);
+                scheduleContent.innerHTML = '<div class="no-data">❌ Unable to load schedule. Please try again later.</div>';
+                loadingBox.style.display = 'none';
+                scheduleBox.style.display = 'block';
+            }
+        }
+        
+        function displaySchedule(data) {
+            // Group by date
+            const byDate = {};
+            
+            data.forEach(row => {
+                const date = row.Date || row.date;
+                const name = row.Name || row.name;
+                const role = row.Role || row.role;
+                
+                if (!date || !name || !role) return;
+                
+                if (!byDate[date]) {
+                    byDate[date] = {};
+                }
+                byDate[date][role] = name;
+            });
+            
+            // Sort dates
+            const sortedDates = Object.keys(byDate).sort();
+            
+            if (sortedDates.length === 0) {
+                document.getElementById('scheduleContent').innerHTML = 
+                    '<div class="no-data">No volunteer signups yet. Be the first to sign up! 🙌</div>';
+                return;
+            }
+            
+            // Build HTML
+            let html = '';
+            
+            sortedDates.forEach(date => {
+                const dateObj = new Date(date + 'T00:00:00');
+                const formatted = dateObj.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                html += `<div class="date-section">`;
+                html += `<div class="date-header">📅 ${formatted}</div>`;
+                html += `<div class="roles-grid">`;
+                
+                ROLES.forEach(role => {
+                    const volunteer = byDate[date][role];
+                    html += `
+                        <div class="role-card">
+                            <div class="role-title">${role}</div>
+                            <div class="${volunteer ? 'volunteer-name' : 'empty-slot'}">
+                                ${volunteer || 'No volunteer yet'}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div></div>`;
+            });
+            
+            document.getElementById('scheduleContent').innerHTML = html;
+        }
+        
+        // Load on page load
+        loadSchedule();
+    </script>
+</body>
+</html>
