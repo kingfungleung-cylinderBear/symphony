@@ -305,11 +305,15 @@
                 
                 if (!date || !name || !role) return;
                 
-                // Normalize date to YYYY-MM-DD format
+                // Normalize date to YYYY-MM-DD format (UTC to avoid timezone shifts)
                 if (date.includes('T')) {
                     // It's a timestamp from Google Sheets
                     const d = new Date(date);
-                    date = d.toISOString().split('T')[0];
+                    // Use UTC methods to avoid timezone conversion
+                    const year = d.getUTCFullYear();
+                    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+                    const day = String(d.getUTCDate()).padStart(2, '0');
+                    date = `${year}-${month}-${day}`;
                 }
                 
                 if (!byDate[date]) {
