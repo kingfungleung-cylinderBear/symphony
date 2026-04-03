@@ -324,13 +324,25 @@
             let html = '';
             
             sortedDates.forEach(date => {
-                const dateObj = new Date(date + 'T00:00:00');
-                const formatted = dateObj.toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
+                // More robust date parsing
+                let formatted;
+                try {
+                    // Try parsing as YYYY-MM-DD
+                    const dateObj = new Date(date + 'T00:00:00');
+                    if (!isNaN(dateObj.getTime())) {
+                        formatted = dateObj.toLocaleDateString('en-US', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                    } else {
+                        // If that fails, just show the raw date string
+                        formatted = date;
+                    }
+                } catch (e) {
+                    formatted = date;
+                }
                 
                 html += `<div class="date-section">`;
                 html += `<div class="date-header">📅 ${formatted}</div>`;
