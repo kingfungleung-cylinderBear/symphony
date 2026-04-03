@@ -327,9 +327,14 @@
                 // More robust date parsing
                 let formatted;
                 try {
-                    // Try parsing as YYYY-MM-DD
-                    const dateObj = new Date(date + 'T00:00:00');
-                    if (!isNaN(dateObj.getTime())) {
+                    // Parse YYYY-MM-DD format reliably
+                    const parts = date.split('-');
+                    if (parts.length === 3) {
+                        const year = parseInt(parts[0]);
+                        const month = parseInt(parts[1]) - 1; // JS months are 0-indexed
+                        const day = parseInt(parts[2]);
+                        const dateObj = new Date(year, month, day);
+                        
                         formatted = dateObj.toLocaleDateString('en-US', { 
                             weekday: 'long', 
                             year: 'numeric', 
@@ -337,7 +342,7 @@
                             day: 'numeric' 
                         });
                     } else {
-                        // If that fails, just show the raw date string
+                        // Fallback: show raw date
                         formatted = date;
                     }
                 } catch (e) {
