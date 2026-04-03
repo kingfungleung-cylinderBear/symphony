@@ -380,7 +380,111 @@
                     </tbody>
                 </table>
             </div>
+            
+            <!-- Volunteer Schedule Section -->
+            <div style="margin-top: 60px;">
+                <h2 class="schedule-title">👥 Volunteer Schedule</h2>
+                <div id="volunteerLoading" style="text-align: center; padding: 40px; font-size: 1.1rem; opacity: 0.8;">
+                    Loading volunteer schedule... ⏳
+                </div>
+                <div id="volunteerSchedule" style="display: none;"></div>
+            </div>
         </div>
     </div>
+    
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw__4rKuyhJvENvlKoV8ZHC6FmdPIQzEmbO4JLJd8ha6t7qhbRN4E9_ES6SFoJ6rgmy/exec';
+        const ROLES = ['Worship Songs', 'Opening Prayer', 'Bible Study', 'Closing Prayer'];
+        
+        async function loadVolunteerSchedule() {
+            const loadingBox = document.getElementById('volunteerLoading');
+            const scheduleBox = document.getElementById('volunteerSchedule');
+            
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                
+                if (!data || data.length === 0) {
+                    scheduleBox.innerHTML = '<div style="text-align: center; padding: 40px; font-size: 1.1rem; opacity: 0.7;">No volunteer signups yet. <a href="signup.html" style="color: #ffd700; text-decoration: underline;">Be the first to sign up!</a></div>';
+                } else {
+                    displayVolunteers(data);
+                }
+                
+                loadingBox.style.display = 'none';
+                scheduleBox.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading volunteers:', error);
+                scheduleBox.innerHTML = '<div style="text-align: center; padding: 40px; opacity: 0.7;">Unable to load volunteer schedule.</div>';
+                loadingBox.style.display = 'none';
+                scheduleBox.style.display = 'block';
+            }
+        }
+        
+        function displayVolunteers(data) {
+            const byDate = {};
+            
+            data.forEach(row => {
+                let date = row.Date || row.date;
+                const name = row.Name || row.name;
+                const role = row.Role || row.role;
+                
+                if (!date || !name || !role) return;
+                
+                if (date.includes('T')) {
+                    const d = new Date(date);
+                    const year = d.getUTCFullYear();
+                    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+                    const day = String(d.getUTCDate()).padStart(2, '0');
+                    date = `${year}-${month}-${day}`;
+                }
+                
+                if (!byDate[date]) {
+                    byDate[date] = {};
+                }
+                byDate[date][role] = name;
+            });
+            
+            const sortedDates = Object.keys(byDate).sort();
+            if (sortedDates.length === 0) {
+                document.getElementById('volunteerSchedule').innerHTML = '<div style="text-align: center; padding: 40px; opacity: 0.7;">No volunteer signups yet.</div>';
+                return;
+            }
+            
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">';
+            
+            sortedDates.forEach(date => {
+                const parts = date.split('-');
+                let formatted;
+                if (parts.length === 3) {
+                    const year = parseInt(parts[0]);
+                    const month = parseInt(parts[1]) - 1;
+                    const day = parseInt(parts[2]);
+                    const dateObj = new Date(year, month, day);
+                    formatted = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                } else {
+                    formatted = date;
+                }
+                
+                html += `<div style="background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">`;
+                html += `<div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; color: #ffd700;">📅 ${formatted}</div>`;
+                
+                ROLES.forEach(role => {
+                    const volunteer = byDate[date][role];
+                    html += `<div style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">`;
+                    html += `<div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 3px;">${role}</div>`;
+                    html += `<div style="font-size: 1.1rem; font-weight: 600; color: ${volunteer ? '#4ade80' : '#fbbf24'};">${volunteer || 'Need volunteer'}</div>`;
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            });
+            
+            html += '</div>';
+            document.getElementById('volunteerSchedule').innerHTML = html;
+        }
+        
+        loadVolunteerSchedule();
+    </script>
 </body>
 </html>
