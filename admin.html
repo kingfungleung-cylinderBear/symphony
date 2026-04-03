@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Symphony Christian Care Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .resource-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .resource-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .resource-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.05);
+        }
+        
+        .prayer-groups {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .prayer-groups h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .group h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+        
+        .group ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .group li {
+            padding: 8px 0;
+            font-size: 1.05rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .group li:last-child {
+            border-bottom: none;
+        }
+        
+        .group li:before {
+            content: "👤 ";
+            margin-right: 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .emoji {
+                font-size: 3rem;
+            }
+            
+            .resource-card {
+                padding: 20px;
+            }
+            
+            .prayer-groups {
+                padding: 25px;
+            }
+            
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Home</a>
+        
+        <div class="header">
+            <div class="emoji">🔐</div>
+            <h1>Admin Resources</h1>
+            <p class="subtitle">Leadership tools and information</p>
+        </div>
+        
+        <!-- Resource Cards -->
+        <div class="resources-grid">
+            <div class="resource-card">
+                <span class="resource-icon">🎂</span>
+                <h3>Birthday Celebrations</h3>
+                <p>View upcoming birthdays and plan celebrations for our care group members.</p>
+                <a href="birthdays.html" class="resource-link">View Birthdays →</a>
+            </div>
+            
+            <div class="resource-card">
+                <span class="resource-icon">📖</span>
+                <h3>Ephesians Study</h3>
+                <p>Complete study guide and resources for our Ephesians Bible study series.</p>
+                <a href="https://www.caregroupleaders.com/_files/ugd/c77db4_8b067010362b4ff0b9184b4b3fc1c458.pdf" target="_blank" class="resource-link">Open Study Guide →</a>
+            </div>
+            
+            <div class="resource-card">
+                <span class="resource-icon">📅</span>
+                <h3>Room Booking</h3>
+                <p>Check availability and book rooms for our Thursday meetups and events.</p>
+                <a href="https://docs.google.com/spreadsheets/d/1YiwmW0DMauDrdmTRDeKBlxq6iXgXtwxCCumPed_drs4/edit?gid=72142483#gid=72142483" target="_blank" class="resource-link">View Schedule →</a>
+            </div>
+            
+            <div class="resource-card">
+                <span class="resource-icon">📝</span>
+                <h3>Volunteer Sign-Up</h3>
+                <p>Manage volunteer roles for worship, prayers, and Bible study leadership.</p>
+                <a href="signup.html" class="resource-link">Manage Sign-Ups →</a>
+            </div>
+        </div>
+        
+        <!-- Prayer Groups Section -->
+        <div class="prayer-groups">
+            <h2>🙏 Prayer Group Allocation</h2>
+            <div class="groups-container">
+                <div class="group">
+                    <h3>Group 1</h3>
+                    <ul>
+                        <li>Edwin</li>
+                        <li>Joy</li>
+                        <li>Bonita</li>
+                    </ul>
+                </div>
+                
+                <div class="group">
+                    <h3>Group 2</h3>
+                    <ul>
+                        <li>Sharon</li>
+                        <li>Christo</li>
+                        <li>Josephine</li>
+                    </ul>
+                </div>
+                
+                <div class="group">
+                    <h3>Group 3</h3>
+                    <ul>
+                        <li>Connie</li>
+                        <li>Flora</li>
+                        <li>Mylene</li>
+                        <li>Eve</li>
+                    </ul>
+                </div>
+                
+                <div class="group">
+                    <h3>Group 4</h3>
+                    <ul>
+                        <li>Alvin</li>
+                        <li>Samuel</li>
+                        <li>Billy</li>
+                        <li>Janice</li>
+                    </ul>
+                </div>
+                
+                <div class="group">
+                    <h3>Group 5</h3>
+                    <ul>
+                        <li>Maria</li>
+                        <li>John</li>
+                        <li>Kelvin</li>
+                        <li>Andrew</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
