@@ -299,11 +299,18 @@
             const byDate = {};
             
             data.forEach(row => {
-                const date = row.Date || row.date;
+                let date = row.Date || row.date;
                 const name = row.Name || row.name;
                 const role = row.Role || row.role;
                 
                 if (!date || !name || !role) return;
+                
+                // Normalize date to YYYY-MM-DD format
+                if (date.includes('T')) {
+                    // It's a timestamp from Google Sheets
+                    const d = new Date(date);
+                    date = d.toISOString().split('T')[0];
+                }
                 
                 if (!byDate[date]) {
                     byDate[date] = {};
@@ -324,10 +331,9 @@
             let html = '';
             
             sortedDates.forEach(date => {
-                // More robust date parsing
+                // Parse YYYY-MM-DD format reliably
                 let formatted;
                 try {
-                    // Parse YYYY-MM-DD format reliably
                     const parts = date.split('-');
                     if (parts.length === 3) {
                         const year = parseInt(parts[0]);
@@ -342,7 +348,6 @@
                             day: 'numeric' 
                         });
                     } else {
-                        // Fallback: show raw date
                         formatted = date;
                     }
                 } catch (e) {
