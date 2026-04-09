@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -259,6 +263,8 @@
 
 
             
+            <a href="#volunteer-signup" class="signup-button">🤝 Sign Up to Volunteer</a>
+            
             <div class="scroll-hint">
                 Scroll down to see upcoming meetups
                 <span class="scroll-arrow">↓</span>
@@ -366,7 +372,7 @@
             </div>
             
             <!-- Volunteer Schedule Section -->
-            <div style="margin-top: 60px;">
+            <div id="volunteer-signup" style="margin-top: 60px;">
                 <h2 class="schedule-title">👥 Volunteer Schedule</h2>
                 <div id="volunteerLoading" style="text-align: center; padding: 40px; font-size: 1.1rem; opacity: 0.8;">
                     Loading volunteer schedule... ⏳
