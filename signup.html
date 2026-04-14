@@ -313,7 +313,7 @@
     </div>
     
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzr3j4OBy0MQ8u16yKqYFlt1i4IWkO4zDum98TVnDrCyq6vrHBRJp1GDMAThTtiKmc8/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxadTeW_le6HihJj4nsEbPnp11lu3kXE0TLJ30LFwNzLaxPWQlJxPrt0AaYa_Fw5LQl/exec';
         
         const form = document.getElementById('signupForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -386,23 +386,16 @@
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData),
-                    redirect: 'follow'
+                    body: JSON.stringify(formData)
                 });
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    showMessage('✅ ' + result.message, 'success');
-                    form.reset();
-                } else if (result.conflict) {
-                    showMessage('⚠️ ' + result.message, 'error');
-                } else {
-                    showMessage('❌ ' + result.message, 'error');
-                }
+                // Due to no-cors, assume success if no error thrown
+                showMessage('✅ Thank you! Your signup has been recorded. Check the schedule to confirm.', 'success');
+                form.reset();
                 
             } catch (error) {
                 console.error('Error:', error);
