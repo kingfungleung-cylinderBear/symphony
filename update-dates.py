@@ -1,54 +1,59 @@
 #!/usr/bin/env python3
 """
-Update the hardcoded Thursday dates in signup.html
-Run this weekly to refresh the date dropdown with the next 10 Thursdays
+Update the hardcoded Regular Meetup dates in signup2.html
+Run this when the schedule changes or weekly to verify
 """
 
 import re
-from datetime import datetime, timedelta
 
-SIGNUP_FILE = 'signup.html'
+SIGNUP_FILE = 'signup2.html'
 
-def generate_thursday_options(count=10):
-    """Generate the next N Thursdays as HTML option elements"""
-    today = datetime.now()
-    thursdays = []
-    current_date = today
-    
-    while len(thursdays) < count:
-        current_date += timedelta(days=1)
-        if current_date.weekday() == 3:  # Thursday
-            date_str = current_date.strftime('%Y-%m-%d')
-            readable = current_date.strftime('%B %d, %Y (Thursday)')
-            thursdays.append(f'                        <option value="{date_str}">{readable}</option>')
-    
-    return thursdays
+# Regular Meetup dates from index.html schedule
+# Update this list manually when the schedule changes
+REGULAR_MEETUP_DATES = [
+    '2026-04-16',
+    '2026-05-07',
+    '2026-05-14',
+    '2026-05-21',
+    '2026-06-04',
+    '2026-06-11',
+    '2026-06-18',
+    '2026-07-09'
+]
 
 def update_signup_dates():
-    """Update signup.html with fresh Thursday dates"""
+    """Update signup2.html with current Regular Meetup dates"""
     with open(SIGNUP_FILE, 'r') as f:
         content = f.read()
     
-    # Generate new dates
-    new_dates = generate_thursday_options(10)
-    hardcoded_dates = '\n'.join(new_dates)
+    # Generate the dates array
+    dates_list = ',\n            '.join([f"'{date}'" for date in REGULAR_MEETUP_DATES])
+    new_dates_section = f"""const DATES = [
+            {dates_list}
+        ];"""
     
-    # Replace the date options (everything between the placeholder option and </select>)
-    pattern = r'(<option value="">Choose a date...</option>)\s*(<option value=".*?</option>\s*)*(\s*</select>)'
-    replacement = f'\\1\n{hardcoded_dates}\n                    \\3'
+    # Replace the DATES array (match the exact format)
+    pattern = r"const DATES = \[[^\]]*\];"
     
-    new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+    if not re.search(pattern, content, re.DOTALL):
+        print("⚠️  Could not find DATES array in signup2.html")
+        return False
+    
+    new_content = re.sub(pattern, new_dates_section, content, flags=re.DOTALL)
+    
+    if new_content == content:
+        print("ℹ️  No changes needed - dates are already up to date")
+        return False
     
     with open(SIGNUP_FILE, 'w') as f:
         f.write(new_content)
     
-    print("✅ Updated signup.html with fresh Thursday dates:")
-    for date_option in new_dates:
-        print(f"   {date_option.strip()}")
-    print("\nNext steps:")
-    print("1. Review the changes: git diff signup.html")
-    print("2. Commit: git add signup.html && git commit -m 'Update Thursday dates'")
-    print("3. Push: git push origin main")
+    print("✅ Updated signup2.html with Regular Meetup dates:")
+    for date in REGULAR_MEETUP_DATES:
+        print(f"   {date}")
+    print("\nℹ️  Remember to also update this script when schedule changes!")
+    return True
 
 if __name__ == '__main__':
-    update_signup_dates()
+    success = update_signup_dates()
+    exit(0 if success else 1)
