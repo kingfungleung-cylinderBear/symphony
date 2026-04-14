@@ -312,12 +312,13 @@
         </div>
     </div>
     
-    <script>
+        <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxadTeW_le6HihJj4nsEbPnp11lu3kXE0TLJ30LFwNzLaxPWQlJxPrt0AaYa_Fw5LQl/exec';
         
         const form = document.getElementById('signupForm');
         const submitBtn = document.getElementById('submitBtn');
         const messageBox = document.getElementById('messageBox');
+        
         // Generate next 10 Thursdays dynamically
         function generateThursdayDates() {
             const dateSelect = document.getElementById('date');
@@ -354,7 +355,6 @@
         
         // Generate dates when page loads
         generateThursdayDates();
-
         
         function showMessage(text, type) {
             messageBox.textContent = text;
@@ -381,7 +381,7 @@
             }
             
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Checking availability...';
+            submitBtn.textContent = 'Submitting...';
             
             try {
                 const response = await fetch(SCRIPT_URL, {
@@ -399,20 +399,7 @@
                 
             } catch (error) {
                 console.error('Error:', error);
-                showMessage('❌ Could not connect to the server. Please check your internet connection and try again.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Sign Me Up! 🙌';
-            }
-        });
-                
-                // Due to no-cors, we can't read the response, but if no error thrown, assume success
-                showMessage('✅ Thank you! Your signup has been recorded.', 'success');
-                form.reset();
-                
-            } catch (error) {
-                showMessage('❌ Something went wrong. Please try again or contact the administrator.', 'error');
-                console.error('Error:', error);
+                showMessage('❌ Could not connect to the server. Please try again.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Sign Me Up! 🙌';
