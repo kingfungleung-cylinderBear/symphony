@@ -348,22 +348,42 @@
             };
             
             if (!formData.name || !formData.date || !formData.role) {
-                showMessage('Please fill in all fields!', 'error');
+                showMessage('❌ Please fill in all fields!', 'error');
                 return;
             }
             
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+            submitBtn.textContent = 'Checking availability...';
             
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(formData),
+                    redirect: 'follow'
                 });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✅ ' + result.message, 'success');
+                    form.reset();
+                } else if (result.conflict) {
+                    showMessage('⚠️ ' + result.message, 'error');
+                } else {
+                    showMessage('❌ ' + result.message, 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('❌ Could not connect to the server. Please check your internet connection and try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Me Up! 🙌';
+            }
+        });
                 
                 // Due to no-cors, we can't read the response, but if no error thrown, assume success
                 showMessage('✅ Thank you! Your signup has been recorded.', 'success');
