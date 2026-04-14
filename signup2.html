@@ -231,6 +231,71 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Mobile card layout */
+        #mobileCards {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            #scheduleTable {
+                display: none !important;
+            }
+            
+            #mobileCards {
+                display: block !important;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        .date-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .date-card-header {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+        
+        .role-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .role-item:last-child {
+            border-bottom: none;
+        }
+        
+        .role-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .role-item .signup-btn {
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            min-width: 90px;
+        }
+        
+        .role-item .volunteer-name {
+            font-size: 1.05rem;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -259,6 +324,9 @@
                 <tbody id="scheduleBody">
                 </tbody>
             </table>
+            
+            <!-- Mobile Card Layout -->
+            <div id="mobileCards"></div>
         </div>
     </div>
     
@@ -374,6 +442,51 @@
             
             document.getElementById('loading').style.display = 'none';
             document.getElementById('scheduleTable').style.display = 'table';
+            renderMobileCards();
+        }
+        
+        function renderMobileCards() {
+            const container = document.getElementById('mobileCards');
+            container.innerHTML = '';
+            
+            DATES.forEach(date => {
+                const card = document.createElement('div');
+                card.className = 'date-card';
+                
+                const header = document.createElement('div');
+                header.className = 'date-card-header';
+                header.textContent = formatDate(date);
+                card.appendChild(header);
+                
+                ROLES.forEach(role => {
+                    const item = document.createElement('div');
+                    item.className = 'role-item';
+                    
+                    const roleName = document.createElement('div');
+                    roleName.className = 'role-name';
+                    roleName.textContent = role;
+                    item.appendChild(roleName);
+                    
+                    const key = `${date}|${role}`;
+                    
+                    if (signupsData[key]) {
+                        const volunteerSpan = document.createElement('span');
+                        volunteerSpan.className = 'volunteer-name';
+                        volunteerSpan.textContent = signupsData[key];
+                        item.appendChild(volunteerSpan);
+                    } else {
+                        const btn = document.createElement('button');
+                        btn.className = 'signup-btn';
+                        btn.textContent = 'Sign Up';
+                        btn.onclick = () => openSignupModal(date, role);
+                        item.appendChild(btn);
+                    }
+                    
+                    card.appendChild(item);
+                });
+                
+                container.appendChild(card);
+            });
         }
         
         function openSignupModal(date, role) {
