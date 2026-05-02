@@ -305,7 +305,7 @@
         <div class="header">
             <div class="emoji">📅</div>
             <h1>Volunteer Sign-Up</h1>
-            <p class="subtitle">Next 10 Thursday Meetups</p>
+            <p class="subtitle">Upcoming Thursday Meetups</p>
         </div>
         
         <div class="table-container">
@@ -408,7 +408,16 @@
             const tbody = document.getElementById('scheduleBody');
             tbody.innerHTML = '';
             
-            DATES.forEach(date => {
+            // Filter out past dates
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const upcomingDates = DATES.filter(dateStr => {
+                const eventDate = new Date(dateStr + 'T00:00:00');
+                return eventDate >= today;
+            });
+            
+            upcomingDates.forEach(date => {
                 const row = document.createElement('tr');
                 
                 // Date column
@@ -449,7 +458,16 @@
             const container = document.getElementById('mobileCards');
             container.innerHTML = '';
             
-            DATES.forEach(date => {
+            // Filter out past dates (same logic as table)
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const upcomingDates = DATES.filter(dateStr => {
+                const eventDate = new Date(dateStr + 'T00:00:00');
+                return eventDate >= today;
+            });
+            
+            upcomingDates.forEach(date => {
                 const card = document.createElement('div');
                 card.className = 'date-card';
                 
